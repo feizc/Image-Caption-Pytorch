@@ -4,9 +4,9 @@ Requirements: Pytorch 1.2 and python 3.7
 
 structure: CNN+LSTM+Attention
 
-### model.py 
+## Implementation Details
 
-class **Encoder** 
+### Encoder
 
 We use a pretrained ResNet-101 already available in PyTorch's `torchvision` module and discard the last two layers (pooling and linear layers).  
 
@@ -14,11 +14,11 @@ We do add an `AdaptiveAvgPool2d()` layer to **resize the encoding to a fixed siz
 
 We **only fine-tune convolutional blocks 2 through 4 in the ResNet**, because the first convolutional block would have usually learned something very fundamental to image processing, such as detecting lines, edges, curves, etc.  
 
-class **Attention** 
+### Attention
 
 Separate linear layers **transform both the encoded image (flattened to `N, 14 * 14, 2048`, N represents the batch size) and the hidden state (output) from the Decoder to the same dimension**, viz. the Attention size. They are then added and ReLU activated. A third linear layer **transforms this result to a dimension of 1**, whereupon we **apply the softmax to generate the weights** `alpha`.
 
-class **Decoder** 
+### Decoder
 
 The output of the Encoder is received here and flattened to dimensions `N, 14 * 14, 2048`. This is just convenient and prevents having to reshape the tensor multiple times.
 
