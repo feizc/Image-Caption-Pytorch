@@ -34,3 +34,8 @@ We **concatenate this filtered attention-weighted encoding with the embedding of
 
 We also store the weights returned by the Attention network at each timestep.  
 
+## Reference
+
+[1] https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning 
+
+[2] https://pytorch.org/tutorials/beginner/pytorch_with_examples.html
