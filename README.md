@@ -1,4 +1,6 @@
-# image caption baseline
+# Image Caption Baseline
+
+Requirements: Pytorch 1.2 and python 3.7
 
 ## model.py 
 
