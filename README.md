@@ -2,7 +2,7 @@
 
 Requirements: Pytorch 1.2 and python 3.7 
 
-structure: CNN+LSTM+Attention
+Structure: CNN+LSTM+Attention
 
 ## Implementation Details
 
