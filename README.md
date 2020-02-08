@@ -34,6 +34,24 @@ We **concatenate this filtered attention-weighted encoding with the embedding of
 
 We also store the weights returned by the Attention network at each timestep.  
 
+# Training Model 
+
+Before you begin, make sure to save the required data files for training, validation, and testing. To do this, run the contents of [`create_input_files.py`] after pointing it to the the Karpathy JSON file and the image folder containing the extracted `train2014` and `val2014` folders from your [downloaded data]. 
+
+I'm using the MSCOCO '14 Dataset. You'd need to download the [Training (13GB)](http://images.cocodataset.org/zips/train2014.zip) and [Validation (6GB)](http://images.cocodataset.org/zips/val2014.zip) images.
+
+We will use [Andrej Karpathy's training, validation, and test splits](http://cs.stanford.edu/people/karpathy/deepimagesent/caption_datasets.zip). This zip file contain the captions. You will also find splits and captions for the Flicker8k and Flicker30k datasets, so feel free to use these instead of MSCOCO if the latter is too large for computer. 
+
+See [`train.py`](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning/blob/master/train.py).
+The parameters for the model (and training it) are at the beginning of the file, so you can easily check or modify them should you wish to.
+
+To **train your model from scratch**, simply run this file –
+
+`python train.py`
+
+To **resume training at a checkpoint**, point to the corresponding file with the `checkpoint` parameter at the beginning of the code.
+Note that we perform validation at the end of every training epoch.
+
 ## Reference
 
 [1] https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning 
