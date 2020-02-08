@@ -4,9 +4,9 @@ Requirements: Pytorch 1.2 and python 3.7
 
 Structure: CNN+LSTM+Attention
 
-## Implementation Details
+## 1. Implementation Details
 
-### Encoder
+### 1.1. Encoder
 
 We use a pretrained ResNet-101 already available in PyTorch's `torchvision` module and discard the last two layers (pooling and linear layers).  
 
@@ -14,11 +14,11 @@ We do add an `AdaptiveAvgPool2d()` layer to **resize the encoding to a fixed siz
 
 We **only fine-tune convolutional blocks 2 through 4 in the ResNet**, because the first convolutional block would have usually learned something very fundamental to image processing, such as detecting lines, edges, curves, etc.  
 
-### Attention
+### 1.2. Attention
 
 Separate linear layers **transform both the encoded image (flattened to `N, 14 * 14, 2048`, N represents the batch size) and the hidden state (output) from the Decoder to the same dimension**, viz. the Attention size. They are then added and ReLU activated. A third linear layer **transforms this result to a dimension of 1**, whereupon we **apply the softmax to generate the weights** `alpha`.
 
-### Decoder
+### 1.3. Decoder
 
 The output of the Encoder is received here and flattened to dimensions `N, 14 * 14, 2048`. This is just convenient and prevents having to reshape the tensor multiple times.
 
@@ -34,7 +34,7 @@ We **concatenate this filtered attention-weighted encoding with the embedding of
 
 We also store the weights returned by the Attention network at each timestep.  
 
-## Training Model 
+## 2. Training Model 
 
 Before you begin, make sure to save the required data files for training, validation, and testing. To do this, run the contents of [`create_input_files.py`] after pointing it to the the Karpathy JSON file and the image folder containing the extracted `train2014` and `val2014` folders from your [downloaded data]. 
 
@@ -52,8 +52,28 @@ To **train your model from scratch**, simply run this file –
 To **resume training at a checkpoint**, point to the corresponding file with the `checkpoint` parameter at the beginning of the code.
 Note that we perform validation at the end of every training epoch.
 
-## Reference
+
+## 3. Model Inference
+
+See [`inference.py`].
+During inference, we _cannot_ directly use the `forward()` method in the Decoder because it uses Teacher Forcing. Rather, we would actually need to **feed the previously generated word to the LSTM at each timestep**.
+
+`caption_image_beam_search()` reads an image, encodes it, and applies the layers in the Decoder in the correct order, while using the previously generated word as the input to the LSTM at each timestep. It also incorporates Beam Search.
+
+`visualize_att()` can be used to visualize the generated caption along with the weights at each timestep as seen in the examples.
+
+To **caption an image** from the command line, point to the image, model checkpoint, word map (and optionally, the beam size) as follows –
+
+`python caption.py --img='path/to/image.jpeg' --model='path/to/BEST_checkpoint_coco_5_cap_per_img_5_min_word_freq.pth.tar' --word_map='path/to/WORDMAP_coco_5_cap_per_img_5_min_word_freq.json' --beam_size=5`
+
+Alternatively, use the functions in the file as needed.
+
+Also see [`eval.py`](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning/blob/master/eval.py), which implements this process for calculating the BLEU score on the validation set, with or without Beam Search.
+
+## 4. Reference
 
 [1] https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning 
 
-[2] https://pytorch.org/tutorials/beginner/pytorch_with_examples.html
+[2] https://arxiv.org/abs/1502.03044
+
+[3] https://pytorch.org/tutorials/beginner/pytorch_with_examples.html
