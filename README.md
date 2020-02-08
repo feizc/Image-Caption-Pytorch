@@ -34,7 +34,7 @@ We **concatenate this filtered attention-weighted encoding with the embedding of
 
 We also store the weights returned by the Attention network at each timestep.  
 
-# Training Model 
+## Training Model 
 
 Before you begin, make sure to save the required data files for training, validation, and testing. To do this, run the contents of [`create_input_files.py`] after pointing it to the the Karpathy JSON file and the image folder containing the extracted `train2014` and `val2014` folders from your [downloaded data]. 
 
