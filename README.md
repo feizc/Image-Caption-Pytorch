@@ -42,7 +42,7 @@ I'm using the MSCOCO '14 Dataset. You'd need to download the [Training (13GB)](h
 
 We will use [Andrej Karpathy's training, validation, and test splits](http://cs.stanford.edu/people/karpathy/deepimagesent/caption_datasets.zip). This zip file contain the captions. You will also find splits and captions for the Flicker8k and Flicker30k datasets, so feel free to use these instead of MSCOCO if the latter is too large for computer. 
 
-See [`train.py`](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning/blob/master/train.py).
+See [`train.py`].
 The parameters for the model (and training it) are at the beginning of the file, so you can easily check or modify them should you wish to.
 
 To **train your model from scratch**, simply run this file –
@@ -68,7 +68,7 @@ To **caption an image** from the command line, point to the image, model checkpo
 
 Alternatively, use the functions in the file as needed.
 
-Also see [`eval.py`](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning/blob/master/eval.py), which implements this process for calculating the BLEU score on the validation set, with or without Beam Search.
+Also see [`eval.py`], which implements this process for calculating the BLEU score on the validation set, with or without Beam Search.
 
 ## 4. Reference
 
